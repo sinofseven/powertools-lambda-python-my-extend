@@ -38,8 +38,6 @@ class SNSRoute(BaseRoute):
             return False
         elif self.arn:
             return self.arn == arn
-        elif not self.name and not self.name_prefix:
-            return False
 
         part = arn.split(":")
         name = part[-1]
