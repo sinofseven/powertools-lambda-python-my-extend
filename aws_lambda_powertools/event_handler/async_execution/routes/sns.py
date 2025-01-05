@@ -45,8 +45,10 @@ class SNSRoute(BaseRoute):
         name = part[-1]
         if self.name:
             return self.name == name
-        else:  # if self.name_prefix
+        elif self.name_prefix:
             return name.find(self.name_prefix) == 0
+        else:
+            return False
 
     def is_target_with_subject(self, subject: str | None) -> bool:
         if not subject:
@@ -69,6 +71,9 @@ class SNSRoute(BaseRoute):
             return False
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, SNSEvent] | None:
+        if not isinstance(event, dict):
+            return None
+
         all_records: list[dict[str, Any]] = event.get("Records", [])
 
         if len(all_records) == 0:
@@ -89,6 +94,6 @@ class SNSRoute(BaseRoute):
             subject = None
 
         if self.is_target(arn, subject):
-            return self.func, SNSEvent(**event)
+            return self.func, SNSEvent(event)
         else:
             return None

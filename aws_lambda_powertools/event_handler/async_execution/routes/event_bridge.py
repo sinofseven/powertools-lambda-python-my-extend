@@ -89,6 +89,9 @@ class EventBridgeRoute(BaseRoute):
         return mapping[text]
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, EventBridgeEvent] | None:
+        if not isinstance(event, dict):
+            return None
+
         detail_type: str | None = event.get("detail-type")
         source: str | None = event.get("source")
         resources: list[str] | None = event.get("resources")
@@ -106,6 +109,6 @@ class EventBridgeRoute(BaseRoute):
             resources = None
 
         if self.is_target(detail_type, source, resources):
-            return self.func, EventBridgeEvent(**event)
+            return self.func, EventBridgeEvent(event)
         else:
             return None

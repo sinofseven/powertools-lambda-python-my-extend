@@ -117,12 +117,15 @@ class CloudWatchLogsRoute(BaseRoute):
         return mapping[text]
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, CloudWatchLogsEvent] | None:
+        if not isinstance(event, dict):
+            return None
+
         text = event.get("awslogs", {}).get("data")
 
         if not isinstance(text, str):
             return None
 
-        data = CloudWatchLogsEvent(**event)
+        data = CloudWatchLogsEvent(event)
         decoded = data.parse_logs_data()
 
         if self.log_group or self.log_group_prefix:

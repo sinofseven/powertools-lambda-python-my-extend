@@ -33,13 +33,19 @@ class AwsConfigRuleRoute(BaseRoute):
             raise ValueError("arn, rule_name, rule_name_prefix, or rule_id must be not null")
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, AWSConfigRuleEvent] | None:
-        if self.arn and event.get("configRuleArn") == self.arn:
-            return self.func, AWSConfigRuleEvent(event)
-        elif self.rule_name and event.get("configRuleName") == self.rule_name:
-            return self.func, AWSConfigRuleEvent(event)
-        elif self.rule_name_prefix and event.get("configRuleName", "").find(self.rule_name_prefix) == 0:
-            return self.func, AWSConfigRuleEvent(event)
-        elif self.rule_id and event.get("configRuleId") == self.rule_id:
-            return self.func, AWSConfigRuleEvent(event)
-        else:
+        if not isinstance(event, dict):
             return None
+        elif self.arn:
+            if event.get("configRuleArn") == self.arn:
+                return self.func, AWSConfigRuleEvent(event)
+        elif self.rule_name:
+            if event.get("configRuleName") == self.rule_name:
+                return self.func, AWSConfigRuleEvent(event)
+        elif self.rule_name_prefix:
+            if event.get("configRuleName", "").find(self.rule_name_prefix) == 0:
+                return self.func, AWSConfigRuleEvent(event)
+        elif self.rule_id:
+            if event.get("configRuleId") == self.rule_id:
+                return self.func, AWSConfigRuleEvent(event)
+
+        return None

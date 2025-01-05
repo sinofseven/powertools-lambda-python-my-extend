@@ -115,6 +115,9 @@ class S3Route(BaseRoute):
         return mapping[text]
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, S3Event] | None:
+        if not isinstance(event, dict):
+            return None
+
         all_records: list[dict[str, Any]] = event.get("Records", [])
 
         if len(all_records) == 0:
@@ -122,7 +125,7 @@ class S3Route(BaseRoute):
 
         record = all_records[0]
         event_name = record.get("eventName")
-        s3_data: dict[str, Any] = record.get("s3")
+        s3_data = record.get("s3")
         if not event_name or not s3_data:
             return None
 
@@ -142,6 +145,6 @@ class S3Route(BaseRoute):
             key = None
 
         if self.is_target(bucket, key, event_name):
-            return self.func, S3Event(**event)
+            return self.func, S3Event(event)
         else:
             return None

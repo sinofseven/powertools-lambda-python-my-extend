@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class AsyncTriggerResolver(Router):
     current_event: Any
-    lambda_context: LambdaContext
+    lambda_context: LambdaContext | None
     raise_when_not_found: bool
 
     def __init__(self, raise_when_not_found: bool = True):

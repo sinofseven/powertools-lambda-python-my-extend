@@ -97,6 +97,9 @@ class SESRoute(BaseRoute):
         return mapping[text]
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, SESEvent] | None:
+        if not isinstance(event, dict):
+            return None
+
         all_records: list[dict[str, Any]] = event.get("Records", [])
 
         if len(all_records) == 0:
@@ -123,6 +126,6 @@ class SESRoute(BaseRoute):
             mail_subject = None
 
         if self.is_target(mail_to, mail_from, mail_subject):
-            return self.func, SESEvent(**event)
+            return self.func, SESEvent(event)
         else:
             return None

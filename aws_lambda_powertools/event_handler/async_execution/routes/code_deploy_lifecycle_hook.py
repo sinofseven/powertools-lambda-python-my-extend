@@ -14,7 +14,9 @@ class CodeDeployLifecycleHookRoute(BaseRoute):
         self.func = func
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, CodeDeployLifecycleHookEvent] | None:
-        if "DeploymentId" in event and "LifecycleEventHookExecutionId" in event:
-            return self.func, CodeDeployLifecycleHookEvent(**event)
+        if not isinstance(event, dict):
+            return None
+        elif "DeploymentId" in event and "LifecycleEventHookExecutionId" in event:
+            return self.func, CodeDeployLifecycleHookEvent(event)
         else:
             return None

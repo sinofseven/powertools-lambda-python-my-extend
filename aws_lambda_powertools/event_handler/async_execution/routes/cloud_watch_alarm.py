@@ -30,7 +30,9 @@ class CloudWatchAlarmRoute(BaseRoute):
             raise ValueError("arn, alarm_name, or alarm_name_prefix must be not null")
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, CloudWatchAlarmEvent] | None:
-        if self.arn and event.get("alarmArn") == self.arn:
+        if not isinstance(event, dict):
+            return None
+        elif self.arn and event.get("alarmArn") == self.arn:
             return self.func, CloudWatchAlarmEvent(event)
 
         alarm_name = event.get("alarmData", {}).get("alarmName", "")

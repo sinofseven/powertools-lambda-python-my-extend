@@ -22,16 +22,19 @@ class SecretsManagerRoute(BaseRoute):
             raise ValueError("secret_id, or secret_name_prefix must be not null")
 
     def match(self, event: dict[str, Any]) -> tuple[Callable, SecretsManagerEvent] | None:
+        if not isinstance(event, dict):
+            return None
+
         secret_id: str | None = event.get("SecretId")
 
         if not secret_id:
             return None
         elif self.secret_id and self.secret_id == secret_id:
-            return self.func, SecretsManagerEvent(**event)
+            return self.func, SecretsManagerEvent(event)
         elif self.secret_name_prefix:
             part = secret_id.split(":")
             secret_name = part[-1]
             if secret_name.find(self.secret_name_prefix) == 0:
-                return self.func, SecretsManagerEvent(**event)
+                return self.func, SecretsManagerEvent(event)
 
         return None
