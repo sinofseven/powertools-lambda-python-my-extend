@@ -32,13 +32,18 @@ class CloudWatchAlarmRoute(BaseRoute):
     def match(self, event: dict[str, Any]) -> tuple[Callable, CloudWatchAlarmEvent] | None:
         if not isinstance(event, dict):
             return None
-        elif self.arn and event.get("alarmArn") == self.arn:
-            return self.func, CloudWatchAlarmEvent(event)
+        elif self.arn:
+            if event.get("alarmArn") == self.arn:
+                return self.func, CloudWatchAlarmEvent(event)
+            else:
+                return None
 
         alarm_name = event.get("alarmData", {}).get("alarmName", "")
-        if self.alarm_name and alarm_name == self.alarm_name:
-            return self.func, CloudWatchAlarmEvent(event)
-        elif self.alarm_name_prefix and alarm_name.find(self.alarm_name_prefix) == 0:
-            return self.func, CloudWatchAlarmEvent(event)
-        else:
-            return None
+        if self.alarm_name:
+            if alarm_name == self.alarm_name:
+                return self.func, CloudWatchAlarmEvent(event)
+        elif self.alarm_name_prefix:
+            if alarm_name.find(self.alarm_name_prefix) == 0:
+                return self.func, CloudWatchAlarmEvent(event)
+
+        return None
