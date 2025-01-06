@@ -3,7 +3,9 @@ import pytest
 from aws_lambda_powertools.event_handler.async_execution.router import (
     AwsConfigRuleRoute,
 )
-from aws_lambda_powertools.utilities.data_classes.aws_config_rule_event import AWSConfigRuleEvent
+from aws_lambda_powertools.utilities.data_classes.aws_config_rule_event import (
+    AWSConfigRuleEvent,
+)
 from tests.functional.utils import load_event
 
 
