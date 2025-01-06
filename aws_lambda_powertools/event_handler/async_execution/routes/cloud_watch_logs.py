@@ -14,7 +14,7 @@ class CloudWatchLogsRoute(BaseRoute):
     log_group_prefix: str | None
     log_stream: str | None
     log_stream_prefix: str | None
-    subscribe_filters: list[str] | None
+    subscription_filters: list[str] | None
 
     def __init__(
         self,
@@ -32,16 +32,16 @@ class CloudWatchLogsRoute(BaseRoute):
         self.log_stream_prefix = log_stream_prefix
 
         if isinstance(subscription_filters, str):
-            self.subscribe_filters = [subscription_filters]
+            self.subscription_filters = [subscription_filters]
         else:
-            self.subscribe_filters = subscription_filters
+            self.subscription_filters = subscription_filters
 
         if (
             not self.log_group
             and not self.log_group_prefix
             and not self.log_stream
             and not self.log_stream_prefix
-            and not self.subscribe_filters
+            and not self.subscription_filters
         ):
             raise ValueError(
                 "log_group, log_group_prefix, log_stream, log_stream_prefix, or subscription_filters must be not null",
@@ -70,10 +70,10 @@ class CloudWatchLogsRoute(BaseRoute):
     def is_target_with_subscription_filters(self, subscription_filters: list[str] | None) -> bool:
         if not subscription_filters:
             return False
-        elif not self.subscribe_filters:
+        elif not self.subscription_filters:
             return False
 
-        for name in self.subscribe_filters:
+        for name in self.subscription_filters:
             if name in subscription_filters:
                 return True
 
@@ -138,7 +138,7 @@ class CloudWatchLogsRoute(BaseRoute):
         else:
             log_stream = None
 
-        if self.subscribe_filters:
+        if self.subscription_filters:
             subscription_filters = decoded.subscription_filters
         else:
             subscription_filters = None
