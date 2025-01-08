@@ -99,13 +99,13 @@ class EventBridgeRoute(BaseRoute):
         if not detail_type and not source and not resources:
             return None
 
-        if self.detail_type:
+        if not self.detail_type:
             detail_type = None
 
-        if self.source:
+        if not self.source:
             source = None
 
-        if self.resources:
+        if not self.resources:
             resources = None
 
         if self.is_target(detail_type, source, resources):
