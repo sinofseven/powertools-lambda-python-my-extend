@@ -79,50 +79,13 @@ class CloudWatchLogsRoute(BaseRoute):
 
         return False
 
-    def is_target(self, log_group: str | None, log_stream: str | None, subscription_filters: list[str] | None) -> bool:
-        flag_log_group = self.is_target_with_log_group(log_group=log_group)
-        flag_log_stream = self.is_target_with_log_stream(log_stream=log_stream)
-        flag_subscription_filters = self.is_target_with_subscription_filters(subscription_filters=subscription_filters)
-
-        if log_group and log_stream and subscription_filters:
-            text = "log_group, log_stream, subscription_filters"
-        elif log_group and log_stream and not subscription_filters:
-            text = "log_group, log_stream"
-        elif log_group and not log_stream and subscription_filters:
-            text = "log_group, subscription_filters"
-        elif not log_group and log_stream and subscription_filters:
-            text = "log_stream, subscription_filters"
-        elif log_group and not log_stream and not subscription_filters:
-            text = "log_group"
-        elif not log_group and log_stream and not subscription_filters:
-            text = "log_stream"
-        elif not log_group and not log_stream and subscription_filters:
-            text = "subscription_filters"
-        else:  # not log_group and not log_stream and not subscription_filters
-            text = ""
-
-        mapping = {
-            "log_group, log_stream, subscription_filters": flag_log_group
-            and flag_log_stream
-            and flag_subscription_filters,
-            "log_group, log_stream": flag_log_group and flag_log_stream,
-            "log_group, subscription_filters": flag_log_group and flag_subscription_filters,
-            "log_stream, subscription_filters": flag_log_stream and flag_subscription_filters,
-            "log_group": flag_log_group,
-            "log_stream": flag_log_stream,
-            "subscription_filters": flag_subscription_filters,
-            "": False,
-        }
-
-        return mapping[text]
-
     def match(self, event: dict[str, Any]) -> tuple[Callable, CloudWatchLogsEvent] | None:
         if not isinstance(event, dict):
             return None
 
-        text = event.get("awslogs", {}).get("data")
+        raw_text = event.get("awslogs", {}).get("data")
 
-        if not isinstance(text, str):
+        if not isinstance(raw_text, str):
             return None
 
         data = CloudWatchLogsEvent(event)
@@ -143,7 +106,32 @@ class CloudWatchLogsRoute(BaseRoute):
         else:
             subscription_filters = None
 
-        if self.is_target(log_group, log_stream, subscription_filters):
+        flag_log_group = self.is_target_with_log_group(log_group=log_group)
+        flag_log_stream = self.is_target_with_log_stream(log_stream=log_stream)
+        flag_subscription_filters = self.is_target_with_subscription_filters(subscription_filters=subscription_filters)
+
+        text = ", ".join(
+            [
+                "log_group: x" if log_group is None else "log_group: o",
+                "log_stream: x" if log_stream is None else "log_stream: o",
+                "subscription_filters: x" if subscription_filters is None else "subscription_filters: o",
+            ],
+        )
+
+        mapping = {
+            "log_group: o, log_stream: o, subscription_filters: o": flag_log_group
+            and flag_log_stream
+            and flag_subscription_filters,
+            "log_group: o, log_stream: o, subscription_filters: x": flag_log_group and flag_log_stream,
+            "log_group: o, log_stream: x, subscription_filters: o": flag_log_group and flag_subscription_filters,
+            "log_group: x, log_stream: o, subscription_filters: o": flag_log_stream and flag_subscription_filters,
+            "log_group: o, log_stream: x, subscription_filters: x": flag_log_group,
+            "log_group: x, log_stream: o, subscription_filters: x": flag_log_stream,
+            "log_group: x, log_stream: x, subscription_filters: o": flag_subscription_filters,
+            "log_group: x, log_stream: x, subscription_filters: x": False,
+        }
+
+        if mapping[text]:
             return self.func, data
         else:
             return None
