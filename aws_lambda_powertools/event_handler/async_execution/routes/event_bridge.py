@@ -53,41 +53,6 @@ class EventBridgeRoute(BaseRoute):
 
         return False
 
-    def is_target(self, detail_type: str | None, source: str | None, resources: list[str] | None) -> bool:
-        flag_detail_type = self.is_target_with_detail_type(detail_type=detail_type)
-        flag_source = self.is_target_with_source(source=source)
-        flag_resources = self.is_target_with_resources(resources=resources)
-
-        if detail_type and source and resources:
-            text = "detail_type, source, resources"
-        elif detail_type and source and not resources:
-            text = "detail_type, source"
-        elif detail_type and not source and resources:
-            text = "detail_type, resources"
-        elif not detail_type and source and resources:
-            text = "source, resources"
-        elif detail_type and not source and not resources:
-            text = "detail_type"
-        elif not detail_type and source and not resources:
-            text = "source"
-        elif not detail_type and not source and resources:
-            text = "resources"
-        else:  # not detail_type and not source and not resources
-            text = ""
-
-        mapping = {
-            "detail_type, source, resources": flag_detail_type and flag_source and flag_resources,
-            "detail_type, source": flag_detail_type and flag_source,
-            "detail_type, resources": flag_detail_type and flag_resources,
-            "source, resources": flag_source and flag_resources,
-            "detail_type": flag_detail_type,
-            "source": flag_source,
-            "resources": flag_resources,
-            "": False,
-        }
-
-        return mapping[text]
-
     def match(self, event: dict[str, Any]) -> tuple[Callable, EventBridgeEvent] | None:
         if not isinstance(event, dict):
             return None
@@ -108,7 +73,30 @@ class EventBridgeRoute(BaseRoute):
         if not self.resources:
             resources = None
 
-        if self.is_target(detail_type, source, resources):
+        flag_detail_type = self.is_target_with_detail_type(detail_type=detail_type)
+        flag_source = self.is_target_with_source(source=source)
+        flag_resources = self.is_target_with_resources(resources=resources)
+
+        text = ", ".join(
+            [
+                "detail_type: x" if detail_type is None else "detail_type: o",
+                "source: x" if source is None else "source: o",
+                "resources: x" if resources is None else "resources: o",
+            ],
+        )
+
+        mapping = {
+            "detail_type: o, source: o, resources: o": flag_detail_type and flag_source and flag_resources,
+            "detail_type: o, source: o, resources: x": flag_detail_type and flag_source,
+            "detail_type: o, source: x, resources: o": flag_detail_type and flag_resources,
+            "detail_type: x, source: o, resources: o": flag_source and flag_resources,
+            "detail_type: o, source: x, resources: x": flag_detail_type,
+            "detail_type: x, source: o, resources: x": flag_source,
+            "detail_type: x, source: x, resources: o": flag_resources,
+            "detail_type: x, source: x, resources: x": False,
+        }
+
+        if mapping[text]:
             return self.func, EventBridgeEvent(event)
         else:
             return None
