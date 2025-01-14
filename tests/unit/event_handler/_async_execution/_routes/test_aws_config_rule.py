@@ -952,6 +952,512 @@ class TestAwsConfigRuleRoute:
                 {"func": lambda *_: None, "rule_id": "config-rule-000000"},
                 False,
             ),
+            # Other events
+            (
+                "activeMQEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "albEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "albEventPathTrailingSlash.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "albMultiValueHeadersEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "albMultiValueQueryStringEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayAuthorizerRequestEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayAuthorizerTokenEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayAuthorizerV2Event.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyEventAnotherPath.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyEventNoOrigin.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyEventPathTrailingSlash.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyEventPrincipalId.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyEvent_noVersionAuth.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyOtherEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2Event.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2EventPathTrailingSlash.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2Event_GET.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2IamEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2LambdaAuthorizerEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2OtherGetEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2SchemaMiddlwareInvalidEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apiGatewayProxyV2SchemaMiddlwareValidEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apigatewayeSchemaMiddlwareInvalidEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "apigatewayeSchemaMiddlwareValidEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "appSyncAuthorizerEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "appSyncAuthorizerResponse.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "appSyncBatchEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "appSyncDirectResolver.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "appSyncResolverEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "bedrockAgentEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "bedrockAgentEventWithPathParams.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "bedrockAgentPostEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudWatchAlarmEventCompositeMetric.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudWatchAlarmEventSingleMetric.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudWatchDashboardEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudWatchLogEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudWatchLogEventWithPolicyLevel.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudformationCustomResourceCreate.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudformationCustomResourceDelete.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cloudformationCustomResourceUpdate.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "codeDeployLifecycleHookEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "codePipelineEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "codePipelineEventData.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "codePipelineEventEmptyUserParameters.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "codePipelineEventWithEncryptionKey.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoCreateAuthChallengeEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoCustomEmailSenderEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoCustomMessageEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoCustomSMSSenderEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoDefineAuthChallengeEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoPostAuthenticationEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoPostConfirmationEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoPreAuthenticationEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoPreSignUpEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoPreTokenGenerationEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoPreTokenV2GenerationEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoUserMigrationEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "cognitoVerifyAuthChallengeResponseEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "connectContactFlowEventAll.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "connectContactFlowEventMin.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "dynamoStreamEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "eventBridgeEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kafkaEventMsk.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kafkaEventSelfManaged.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kinesisFirehoseKinesisEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kinesisFirehosePutEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kinesisFirehoseSQSEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kinesisStreamCloudWatchLogsEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kinesisStreamEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "kinesisStreamEventOneRecord.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "lambdaFunctionUrlEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "lambdaFunctionUrlEventPathTrailingSlash.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "lambdaFunctionUrlEventWithHeaders.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "lambdaFunctionUrlIAMEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "rabbitMQEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3BatchOperationEventSchemaV1.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3BatchOperationEventSchemaV2.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3Event.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3EventBridgeNotificationObjectCreatedEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3EventBridgeNotificationObjectDeletedEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3EventBridgeNotificationObjectExpiredEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3EventBridgeNotificationObjectRestoreCompletedEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3EventDecodedKey.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3EventDeleteObject.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3EventGlacier.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3ObjectEventIAMUser.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3ObjectEventTempCredentials.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "s3SqsEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "secretsManagerEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "sesEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "snsEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "snsSqsEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "snsSqsFifoEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "sqsDlqTriggerEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "sqsEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "vpcLatticeEvent.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "vpcLatticeEventPathTrailingSlash.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "vpcLatticeEventV2PathTrailingSlash.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "vpcLatticeV2Event.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
+            (
+                "vpcLatticeV2EventWithHeaders.json",
+                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                False,
+            ),
         ],
     )
     def test_match(self, event_name, option_constructor, expected_true):
