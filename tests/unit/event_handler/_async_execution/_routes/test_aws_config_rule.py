@@ -15,270 +15,951 @@ class TestAwsConfigRuleRoute:
             AwsConfigRuleRoute(func=lambda _: None)
 
     @pytest.mark.parametrize(
-        "event_name, option_constructor",
+        "option_constructor, option_func, expected",
         [
-            # other events
-            ("activeMQEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("albEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("albEventPathTrailingSlash.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("albMultiValueHeadersEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("albMultiValueQueryStringEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayAuthorizerRequestEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayAuthorizerTokenEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayAuthorizerV2Event.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyEventAnotherPath.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyEventNoOrigin.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyEventPathTrailingSlash.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyEventPrincipalId.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyEvent_noVersionAuth.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyOtherEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2Event.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2EventPathTrailingSlash.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2Event_GET.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2IamEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2LambdaAuthorizerEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2OtherGetEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2SchemaMiddlwareInvalidEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apiGatewayProxyV2SchemaMiddlwareValidEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apigatewayeSchemaMiddlwareInvalidEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("apigatewayeSchemaMiddlwareValidEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("appSyncAuthorizerEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("appSyncAuthorizerResponse.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("appSyncBatchEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("appSyncDirectResolver.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("appSyncResolverEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("bedrockAgentEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("bedrockAgentEventWithPathParams.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("bedrockAgentPostEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudWatchAlarmEventCompositeMetric.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudWatchAlarmEventSingleMetric.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudWatchDashboardEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudWatchLogEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudWatchLogEventWithPolicyLevel.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudformationCustomResourceCreate.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudformationCustomResourceDelete.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cloudformationCustomResourceUpdate.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("codeDeployLifecycleHookEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("codePipelineEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("codePipelineEventData.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("codePipelineEventEmptyUserParameters.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("codePipelineEventWithEncryptionKey.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoCreateAuthChallengeEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoCustomEmailSenderEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoCustomMessageEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoCustomSMSSenderEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoDefineAuthChallengeEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoPostAuthenticationEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoPostConfirmationEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoPreAuthenticationEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoPreSignUpEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoPreTokenGenerationEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoPreTokenV2GenerationEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoUserMigrationEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("cognitoVerifyAuthChallengeResponseEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("connectContactFlowEventAll.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("connectContactFlowEventMin.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("dynamoStreamEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("eventBridgeEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kafkaEventMsk.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kafkaEventSelfManaged.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kinesisFirehoseKinesisEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kinesisFirehosePutEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kinesisFirehoseSQSEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kinesisStreamCloudWatchLogsEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kinesisStreamEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("kinesisStreamEventOneRecord.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("lambdaFunctionUrlEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("lambdaFunctionUrlEventPathTrailingSlash.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("lambdaFunctionUrlEventWithHeaders.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("lambdaFunctionUrlIAMEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("rabbitMQEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3BatchOperationEventSchemaV1.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3BatchOperationEventSchemaV2.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3Event.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3EventBridgeNotificationObjectCreatedEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3EventBridgeNotificationObjectDeletedEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3EventBridgeNotificationObjectExpiredEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            (
-                "s3EventBridgeNotificationObjectRestoreCompletedEvent.json",
-                {"func": None, "rule_id": "config-rule-i1y1j1"},
-            ),
-            ("s3EventDecodedKey.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3EventDeleteObject.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3EventGlacier.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3ObjectEventIAMUser.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3ObjectEventTempCredentials.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("s3SqsEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("secretsManagerEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("sesEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("snsEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("snsSqsEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("snsSqsFifoEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("sqsDlqTriggerEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("sqsEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("vpcLatticeEvent.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("vpcLatticeEventPathTrailingSlash.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("vpcLatticeEventV2PathTrailingSlash.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("vpcLatticeV2Event.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            ("vpcLatticeV2EventWithHeaders.json", {"func": None, "rule_id": "config-rule-i1y1j1"}),
-            # aws_config_rule_event, not match arn, without rule_name, rule_name_prefix, or rule_id
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i1y1j1"},
-            ),
-            (
-                "awsConfigRuleOversizedConfiguration.json",
-                {
-                    "func": None,
-                    "arn": "/".join(
-                        [
-                            "arn:aws:config:us-east-2:123456789012:config-rule",
-                            "config-rule-ec2-managed-instance-inventory-v2",
-                        ],
-                    ),
-                },
-            ),
-            (
-                "awsConfigRuleScheduled.json",
-                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-pdmyw3"},
-            ),
-            # awsConfigRuleConfigurationChanged.json, not match arn, with rule_name, rule_name_prefix, or rule_id
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {
-                    "func": None,
-                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i1y1j1",
-                    "rule_name": "MyRule",
-                },
-            ),
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {
-                    "func": None,
-                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i1y1j1",
-                    "rule_name_prefix": "My",
-                },
-            ),
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {
-                    "func": None,
-                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i1y1j1",
-                    "rule_id": "config-rule-i9y8j9",
-                },
-            ),
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {
-                    "func": None,
-                    "rule_name": "MyRuleV2",
-                    "rule_name_prefix": "My",
-                    "rule_id": "config-rule-i9y8j9",
-                },
-            ),
-            # awsConfigRuleConfigurationChanged.json, not match rule_name, without rule_name_prefix, or rule_id
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {
-                    "func": None,
-                    "rule_name": "MyRuleV2",
-                },
-            ),
-            # awsConfigRuleConfigurationChanged.json, not match rule_name, with rule_name_prefix, or rule_id
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "rule_name": "MyRuleV2", "rule_name_prefix": "My"},
-            ),
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "rule_name": "MyRuleV2", "rule_id": "config-rule-i9y8j9"},
-            ),
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "rule_name": "MyRuleV2", "rule_name_prefix": "My", "rule_id": "config-rule-i9y8j9"},
-            ),
-            # awsConfigRuleConfigurationChanged.json, not match rule_name_prefix, without rule_id
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "rule_name_prefix": "Me"},
-            ),
-            # awsConfigRuleConfigurationChanged.json, not match rule_name_prefix, with rule_id
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "rule_name_prefix": "Me", "rule_id": "config-rule-i9y8j9"},
-            ),
-            # awsConfigRuleConfigurationChanged.json, not match rule_id
-            (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "rule_id": "config-rule-i1y1j1"},
-            ),
+            ({"func": None, "arn": "test-arn"}, {"arn": None}, False),
+            ({"func": None, "arn": "test-arn"}, {"arn": "test-arn"}, True),
+            ({"func": None, "arn": "test-arn-v2"}, {"arn": "test-arn"}, False),
+            ({"func": None, "rule_name": "test-rule"}, {"arn": "test-arn"}, False),
         ],
     )
-    def test_match_false(self, event_name, option_constructor):
+    def test_is_target_with_arn(self, option_constructor, option_func, expected):
         route = AwsConfigRuleRoute(**option_constructor)
-        event = load_event(file_name=event_name)
-        actual = route.match(event=event)
-        assert actual is None
+        actual = route.is_target_with_arn(**option_func)
+        assert actual == expected
 
     @pytest.mark.parametrize(
-        "event_name, option_constructor",
+        "option_constructor, option_func, expected",
         [
-            # awsConfigRuleConfigurationChanged.json, match arn
+            ({"func": None, "rule_name": "test-rule"}, {"rule_name": None}, False),
+            ({"func": None, "rule_name": "test-rule"}, {"rule_name": "test-rule"}, True),
+            ({"func": None, "rule_name": "test-rule-v2"}, {"rule_name": "test-rule"}, False),
+            ({"func": None, "rule_name_prefix": "test-r"}, {"rule_name": "test-rule"}, True),
+            ({"func": None, "rule_name_prefix": "test-rr"}, {"rule_name": "test-rule"}, False),
+            ({"func": None, "rule_name": "test-rule", "rule_name_prefix": "test-r"}, {"rule_name": "test-rule"}, True),
+            ({"func": None, "rule_name": "test-rule", "rule_name_prefix": "test-rr"}, {"rule_name": "test-rule"}, True),
             (
-                "awsConfigRuleConfigurationChanged.json",
-                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9"},
+                {"func": None, "rule_name": "test-rule-v2", "rule_name_prefix": "test-r"},
+                {"rule_name": "test-rule"},
+                False,
             ),
-            # awsConfigRuleConfigurationChanged.json, match rule_name
-            ("awsConfigRuleConfigurationChanged.json", {"func": None, "rule_name": "MyRule"}),
-            # awsConfigRuleConfigurationChanged.json, match rule_name_prefix
-            ("awsConfigRuleConfigurationChanged.json", {"func": None, "rule_name_prefix": "MyR"}),
-            # awsConfigRuleConfigurationChanged.json, match rule_id
-            ("awsConfigRuleConfigurationChanged.json", {"func": None, "rule_id": "config-rule-i9y8j9"}),
-            # awsConfigRuleOversizedConfiguration.json, match arn
             (
-                "awsConfigRuleOversizedConfiguration.json",
-                {
-                    "func": None,
-                    "arn": "/".join(
-                        [
-                            "arn:aws:config:us-east-2:123456789012:config-rule",
-                            "config-rule-ec2-managed-instance-inventory",
-                        ],
-                    ),
-                },
+                {"func": None, "rule_name": "test-rule-v2", "rule_name_prefix": "test-r"},
+                {"rule_name": "test-rule"},
+                False,
             ),
-            # awsConfigRuleOversizedConfiguration.json, match rule_name
-            (
-                "awsConfigRuleOversizedConfiguration.json",
-                {"func": None, "rule_name": "change-triggered-config-rule"},
-            ),
-            # awsConfigRuleOversizedConfiguration.json, match rule_name_prefix
-            (
-                "awsConfigRuleOversizedConfiguration.json",
-                {"func": None, "rule_name_prefix": "change-t"},
-            ),
-            # awsConfigRuleOversizedConfiguration.json, match rule_id
-            (
-                "awsConfigRuleOversizedConfiguration.json",
-                {"func": None, "rule_id": "config-rule-0123456"},
-            ),
-            # awsConfigRuleScheduled.json, match arn
-            (
-                "awsConfigRuleScheduled.json",
-                {"func": None, "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-pdmyw1"},
-            ),
-            # awsConfigRuleScheduled.json, match rule_name
-            ("awsConfigRuleScheduled.json", {"func": None, "rule_name": "rule-ec2-test"}),
-            # awsConfigRuleScheduled.json, match rule_name_prefix
-            ("awsConfigRuleScheduled.json", {"func": None, "rule_name_prefix": "rule-e"}),
-            # awsConfigRuleScheduled.json, match rule_id
-            ("awsConfigRuleScheduled.json", {"func": None, "rule_id": "config-rule-pdmyw1"}),
+            ({"func": None, "arn": "test-arn"}, {"rule_name": "test-rule"}, False),
         ],
     )
-    def test_match_true(self, event_name, option_constructor):
+    def test_is_target_with_rule_name(self, option_constructor, option_func, expected):
         route = AwsConfigRuleRoute(**option_constructor)
+        actual = route.is_target_with_rule_name(**option_func)
+        assert actual == expected
+
+    @pytest.mark.parametrize(
+        "option_constructor, option_func, expected",
+        [
+            ({"func": None, "rule_id": "test-id"}, {"rule_id": None}, False),
+            ({"func": None, "rule_id": "test-id"}, {"rule_id": "test-id"}, True),
+            ({"func": None, "rule_id": "test-id-v2"}, {"rule_id": "test-id"}, False),
+            ({"func": None, "arn": "test-arn"}, {"rule_id": "test-id"}, False),
+        ],
+    )
+    def test_is_target_with_rule_id(self, option_constructor, option_func, expected):
+        route = AwsConfigRuleRoute(**option_constructor)
+        actual = route.is_target_with_rule_id(**option_func)
+        assert actual == expected
+
+    @pytest.mark.parametrize(
+        "event_name, option_constructor, expected_true",
+        [
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, rule_name_prefix, and rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, rule_name_prefix, and rule_id
+            # match 3, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                True,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, rule_name_prefix, and rule_id
+            # match 2, unmatch 2
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, rule_name_prefix, and rule_id
+            # match 1, unmatch 3
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, rule_name_prefix, and rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_name_prefix
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_name_prefix
+            # match 2, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                },
+                True,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_name_prefix
+            # match 1, unmatch 2
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_name_prefix
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_id
+            # match 2, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_id
+            # match 1, unmatch 2
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name, and rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name_prefix, and rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name_prefix, and rule_id
+            # match 2, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name_prefix, and rule_id
+            # match 1, unmatch 2
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn, rule_name_prefix, and rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name, rule_name_prefix, and rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name, rule_name_prefix, and rule_id
+            # match 2, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                True,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name, rule_name_prefix, and rule_id
+            # match 1, unmatch 2
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name, rule_name_prefix, and rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_name
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRule",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_name
+            # match 1, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name": "MyRuleV2",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRule",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_name
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name": "MyRuleV2",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_name_prefix
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name_prefix": "MyR",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_name_prefix
+            # match 1, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_name_prefix": "MyRR",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name_prefix": "MyR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_name_prefix
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_name_prefix": "MyRR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_id
+            # match 1, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_id": "config-rule-i9y8j9",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn and rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                    "rule_id": "config-rule-000000",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name and rule_name_prefix
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyR",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name and rule_name_prefix
+            # match 1, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRule",
+                    "rule_name_prefix": "MyRR",
+                },
+                True,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name and rule_name_prefix
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRuleV2",
+                    "rule_name_prefix": "MyRR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name and rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name": "MyRule", "rule_id": "config-rule-i9y8j9"},
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name and rule_id
+            # match 1, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name": "MyRule", "rule_id": "config-rule-000000"},
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name": "MyRuleV2", "rule_id": "config-rule-i9y8j9"},
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name and rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name": "MyRuleV2", "rule_id": "config-rule-000000"},
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name_prefix and rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name_prefix": "MyR", "rule_id": "config-rule-i9y8j9"},
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name_prefix and rule_id
+            # match 1, unmatch 1
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name_prefix": "MyR", "rule_id": "config-rule-000000"},
+                False,
+            ),
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name_prefix": "MyRR", "rule_id": "config-rule-i9y8j9"},
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name_prefix and rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_name_prefix": "MyRR", "rule_id": "config-rule-000000"},
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-i9y8j9",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with arn
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "arn": "arn:aws:config:us-east-1:0123456789012:config-rule/config-rule-000000",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRule",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name": "MyRuleV2",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name_prefix
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name_prefix": "MyR",
+                },
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_name_prefix
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {
+                    "func": lambda *_: None,
+                    "rule_name_prefix": "MyRR",
+                },
+                False,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_id
+            # match all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_id": "config-rule-i9y8j9"},
+                True,
+            ),
+            # awsConfigRuleConfigurationChanged.json
+            # with rule_id
+            # unmatch all
+            (
+                "awsConfigRuleConfigurationChanged.json",
+                {"func": lambda *_: None, "rule_id": "config-rule-000000"},
+                False,
+            ),
+        ],
+    )
+    def test_match(self, event_name, option_constructor, expected_true):
         event = load_event(file_name=event_name)
-        expect = (route.func, AWSConfigRuleEvent(event))
+        route = AwsConfigRuleRoute(**option_constructor)
+        expected_return = (route.func, AWSConfigRuleEvent(event))
         actual = route.match(event=event)
-        assert actual == expect
+        if expected_true:
+            assert actual == expected_return
+        else:
+            assert actual is None
