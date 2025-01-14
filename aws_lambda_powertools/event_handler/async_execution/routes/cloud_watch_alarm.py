@@ -57,6 +57,12 @@ class CloudWatchAlarmRoute(BaseRoute):
         if not arn and not alarm_name:
             return None
 
+        if not self.arn:
+            arn = None
+
+        if not self.alarm_name and not self.alarm_name_prefix:
+            alarm_name = None
+
         flag_arn = self.is_target_with_arn(arn=arn)
         flag_alarm_name = self.is_target_with_alarm_name(alarm_name=alarm_name)
 

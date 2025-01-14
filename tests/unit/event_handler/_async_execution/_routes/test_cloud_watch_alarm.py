@@ -28,7 +28,7 @@ class TestCloudWatchAlarmRoute:
                 {
                     "func": lambda _: None,
                     "arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main",
-                    "alarm_name": "CompositeDemo.MainV2",
+                    "alarm_name": "CompositeDemo.Main",
                 },
             ),
             (
@@ -36,7 +36,7 @@ class TestCloudWatchAlarmRoute:
                 {
                     "func": lambda _: None,
                     "arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main",
-                    "alarm_name_prefix": "CompositeDD",
+                    "alarm_name_prefix": "CompositeD",
                 },
             ),
             (
@@ -44,8 +44,8 @@ class TestCloudWatchAlarmRoute:
                 {
                     "func": lambda _: None,
                     "arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main",
-                    "alarm_name": "CompositeDemo.MainV2",
-                    "alarm_name_prefix": "CompositeDD",
+                    "alarm_name": "CompositeDemo.Main",
+                    "alarm_name_prefix": "CompositeD",
                 },
             ),
             # cloudWatchAlarmEventCompositeMetric.json, match alarm_name, without alarm_name_prefix
@@ -87,7 +87,7 @@ class TestCloudWatchAlarmRoute:
                 {
                     "func": lambda _: None,
                     "arn": "arn:aws:cloudwatch:eu-west-1:912397435824:alarm:test_alarm",
-                    "alarm_name": "Test alertV2",
+                    "alarm_name": "Test alert",
                 },
             ),
             (
@@ -95,7 +95,7 @@ class TestCloudWatchAlarmRoute:
                 {
                     "func": lambda _: None,
                     "arn": "arn:aws:cloudwatch:eu-west-1:912397435824:alarm:test_alarm",
-                    "alarm_name_prefix": "Test-a",
+                    "alarm_name_prefix": "Test a",
                 },
             ),
             (
@@ -103,8 +103,8 @@ class TestCloudWatchAlarmRoute:
                 {
                     "func": lambda _: None,
                     "arn": "arn:aws:cloudwatch:eu-west-1:912397435824:alarm:test_alarm",
-                    "alarm_name": "Test alertV2",
-                    "alarm_name_prefix": "Test-a",
+                    "alarm_name": "Test alert",
+                    "alarm_name_prefix": "Test a",
                 },
             ),
             # cloudWatchAlarmEventSingleMetric.json, match alarm_name, without alarm_name_prefix
