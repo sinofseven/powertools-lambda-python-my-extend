@@ -15,6 +15,56 @@ class TestCloudWatchAlarmRoute:
             CloudWatchAlarmRoute(func=None)
 
     @pytest.mark.parametrize(
+        "option_constructor, option_func, expected",
+        [
+            (
+                {"func": None, "arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main"},
+                {"arn": None},
+                False,
+            ),
+            (
+                {"func": None, "arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main"},
+                {"arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main"},
+                True,
+            ),
+            (
+                {"func": None, "arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.MainV2"},
+                {"arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main"},
+                False,
+            ),
+            (
+                {"func": None, "alarm_name": "SuppressionDemo.Main"},
+                {"arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main"},
+                False,
+            ),
+        ],
+    )
+    def test_is_target_with_arn(self, option_constructor, option_func, expected):
+        route = CloudWatchAlarmRoute(**option_constructor)
+        actual = route.is_target_with_arn(**option_func)
+        assert actual == expected
+
+    @pytest.mark.parametrize(
+        "option_constructor, option_func, expected",
+        [
+            ({"func": None, "alarm_name": "CompositeDemo.Main"}, {"alarm_name": None}, False),
+            ({"func": None, "alarm_name": "CompositeDemo.Main"}, {"alarm_name": "CompositeDemo.Main"}, True),
+            ({"func": None, "alarm_name": "CompositeDemo.MainV2"}, {"alarm_name": "CompositeDemo.Main"}, False),
+            ({"func": None, "alarm_name_prefix": "CompositeDemo.M"}, {"alarm_name": "CompositeDemo.Main"}, True),
+            ({"func": None, "alarm_name_prefix": "Main"}, {"alarm_name": "CompositeDemo.Main"}, False),
+            (
+                {"func": None, "arn": "arn:aws:cloudwatch:us-east-1:111122223333:alarm:SuppressionDemo.Main"},
+                {"alarm_name": "CompositeDemo.Main"},
+                False,
+            ),
+        ],
+    )
+    def test_is_target_with_alarm_name(self, option_constructor, option_func, expected):
+        route = CloudWatchAlarmRoute(**option_constructor)
+        actual = route.is_target_with_alarm_name(**option_func)
+        assert actual == expected
+
+    @pytest.mark.parametrize(
         "event_name, option_constructor",
         [
             # cloudWatchAlarmEventCompositeMetric.json, match arn, without alarm_name and alarm_name_prefix
