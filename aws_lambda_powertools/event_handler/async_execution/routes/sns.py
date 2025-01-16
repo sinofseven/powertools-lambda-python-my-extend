@@ -91,7 +91,19 @@ class SNSRoute(BaseRoute):
         else:
             subject = None
 
-        if self.is_target(arn, subject):
+        flag_arn = self.is_target_with_arn(arn=arn)
+        flag_subject = self.is_target_with_subject(subject=subject)
+
+        text = ", ".join(["arn: x" if arn is None else "arn: o", "subject: x" if subject is None else "subject: o"])
+
+        mapping = {
+            "arn: o, subject: o": flag_arn and flag_subject,
+            "arn: o, subject: x": flag_arn,
+            "arn: x, subject: o": flag_subject,
+            "arn: x, subject: x": False,
+        }
+
+        if mapping[text]:
             return self.func, SNSEvent(event)
         else:
             return None
