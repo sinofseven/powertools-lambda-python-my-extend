@@ -48,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false # needed so if a version fails, the others will still be able to complete and cleanup
       matrix:
-        version: ["3.8", "3.9", "3.10", "3.11", "3.12","3.13"]
+        version: ["3.9", "3.10", "3.11", "3.12","3.13"]
     if: ${{ github.actor != 'dependabot[bot]' && github.repository == 'aws-powertools/powertools-lambda-python' }}
     steps:
       - name: "Checkout"
@@ -70,11 +70,12 @@ jobs:
           npm ci
           npx cdk --version
       - name: Install dependencies
-        run: make dev
+        run: make dev-quality-code
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@5fd3084fc36e372ff1fff382a39b10d03659f355 # v2.2.0
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
         with:
           role-to-assume: ${{ secrets.AWS_TEST_ROLE_ARN }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          mask-aws-account-id: true
       - name: Test
         run: make e2e-test
